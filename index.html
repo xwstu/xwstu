@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+    <input type="file" accept="image/*" onchange="iptChange(event)" />
+    <input type="text" name="" id="" oninput="iptPut(event)">
+    <img id="img" src="./logo.png" alt="">
+	<table id="table" border="1">
+		<tr style="height:50px;">
+			<th style="width:100px;color:red;">姓名</th>
+			<th>性别</th>
+			<th>年龄</th>
+		</tr>
+		<tr>
+			<td>小明</td>
+			<td>男</td>
+			<td>16</td>
+		</tr>
+		<tr>
+			<td>小红</td>
+			<td>女</td>
+			<td>17</td>
+		</tr>
+		<tr>
+			<td>小张</td>
+			<td>男</td>
+			<td>17</td>
+		</tr>
+	</table>
+	<a href="./reduce.html">index首页目录跳转</a>
+	<a id="down">点击下载excel</a>
+	<script>
+        var img=document.querySelector('img')
+        function iptChange(e){
+            console.log('文件对象',e.target.files[0]);
+            let blob = new Blob([e.target.files[0]]);
+            console.log('blob',blob);
+            let href = window.URL.createObjectURL(blob)
+            console.log(href);
+            img.src=href
+            console.log(img.scr);
+        }
+        function iptPut(e){
+            console.log(e.target.value);
+        }
+		//或者是body的innerHTML
+		let html = document.getElementById("table").outerHTML;
+		console.log(html);
+		let blob = new Blob([html],{ type: 'application/vnd.ms-excel'});
+		let a = document.getElementById('down');
+		a.href = URL.createObjectURL(blob);
+		a.download = '测试excel下载'
+	</script>
+</body>
+</html>
